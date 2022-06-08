@@ -22,10 +22,10 @@ export default function Modal({
 
   return (
     <>
-      <div className="card card-compact w-96 bg-white rounded-sm shadow-custom-lg transition ease-in-out duration-360 hover:scale-10003 hover:-translate-y-1 mr-10 mt-1 z-50">
+      <div className="card card-compact w-96 bg-white rounded-sm shadow-custom-lg transition ease-in-out duration-360 hover:scale-10003 hover:-translate-y-0.5 mr-10 mt-1 z-50">
         <figure className="p-5">
           <img
-            className="brightness-75 shadow-inner"
+            className="shadow-inner"
             src={`./images/thumbnails/${nft.name}.jpg`}
             alt={nft.name}
           />
