@@ -66,7 +66,7 @@ export default function Navbar({location, globeEl}: NavbarProps) {
               smallScreen: "avatar",
               largeScreen: "full",
             }}
-            chainStatus={"icon"}
+            chainStatus="none"
             showBalance={false}
           />
         </div>

@@ -1,8 +1,8 @@
 import axios from "axios";
 import loadShopItems from "./loadShopItems";
-import { Coordinates, Item } from "../interfaces";
+import { Coordinates, Item, Marker } from "../interfaces";
 
-export async function getMarkers() {
+export async function getMarkers(): Promise<Marker[]> {
   // Check for cached items and return them if available
   const cachedMarkers = window.localStorage.getItem("markers");
   if (cachedMarkers?.length) {
@@ -43,6 +43,5 @@ export async function getMarkers() {
 
   // Cache markers in localStorage
   window.localStorage.setItem("markers", JSON.stringify(result));
-
   return result;
 }

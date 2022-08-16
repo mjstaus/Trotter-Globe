@@ -7,10 +7,10 @@ const shopAddress = require("../../frontend/src/contractsData/Shop-address.json"
 const Shop = require("../../frontend/src/contractsData/Shop.json");
 
 const data = [
-  // {
-  //   id: 1,
-  //   collection: "Athens",
-  // },
+  {
+    id: 1,
+    collection: "Athens",
+  },
   {
     id: 2,
     collection: "Berlin",
@@ -51,10 +51,10 @@ const data = [
   //   id: 11,
   //   collection: "Singapore",
   // },
-  {
-    id: 12,
-    collection: "Tokyo",
-  },
+  // {
+  //   id: 12,
+  //   collection: "Tokyo",
+  // },
   // {
   //   id: 13,
   //   collection: "Toronto",

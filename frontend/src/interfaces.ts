@@ -36,8 +36,8 @@ export interface Marker {
   name?: string;
   country?: string;
   image?: string;
-  lat?: number;
-  lng?: number;
+  lat?: number | null | undefined;
+  lng?: number | null | undefined;
   color?: string;
 }
 

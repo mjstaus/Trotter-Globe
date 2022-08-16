@@ -36,9 +36,8 @@ contract Token is ERC1155, Ownable, ERC1155Burnable {
     }
     function uri(uint256 tokenId) override public pure returns (string memory) {
         return(
-            string(abi.encodePacked("https://ipfs.io/ipfs/QmRX9Vrjcg2LgFqNTzsy1CcydrpWKZrbregnpEd3DNiWpM/",
-            Strings.toString(tokenId),
-            ".json"))
+            string(abi.encodePacked("QmRuFNepSkjSVQPEBfnKRjcMcE263243LHwtJL8tejS7Gx/",
+            Strings.toString(tokenId)))
         );
     }
 }
