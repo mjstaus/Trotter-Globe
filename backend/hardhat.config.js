@@ -6,7 +6,7 @@ require("@nomiclabs/hardhat-etherscan");
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "matic",
+  // defaultNetwork: "matic",
   networks: {
     hardhat: {
       chainId: 1337,

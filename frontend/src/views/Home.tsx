@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import type { MutableRefObject } from "react";
 import "../App.css";
 import { Transition } from "@headlessui/react";
 import Globe from "../components/globe";
@@ -21,7 +22,7 @@ function Home({ globeEl, location }: HomeProps) {
   const [transactionInProgress, setTransactionInProgress] = useState(false);
 
   const { isLoaded, setIsLoaded } = useLoading();
-  const markers = useRef(undefined);
+  const markers: MutableRefObject<Marker[] | undefined> = useRef(undefined);
 
   useEffect(() => {
     (async function asyncHandler() {

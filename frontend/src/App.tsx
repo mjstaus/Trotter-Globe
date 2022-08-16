@@ -1,15 +1,14 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
+import "@rainbow-me/rainbowkit/styles.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import "@rainbow-me/rainbowkit/styles.css";
 import {
   darkTheme,
   getDefaultWallets,
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { alchemyProvider } from "wagmi/providers/alchemy";
 import { infuraProvider } from "wagmi/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
 

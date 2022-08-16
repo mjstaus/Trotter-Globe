@@ -14,7 +14,7 @@ export default async function loadShopItems() {
       // get uri url from token contract
       const uri = await token.uri(item.tokenId);
       // use uri to fetch the token metadata stored on ipfs
-      const response = await axios.get(uri);
+      const response = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}.json`);
       const metadata = await response.data;
 
       if (!item.sold) {
@@ -27,7 +27,7 @@ export default async function loadShopItems() {
           sold: item.sold,
           name: metadata.name,
           country: metadata.country,
-          image: metadata.image,
+          image: `https://gateway.pinata.cloud/ipfs/${metadata.image}.png`,
         });
       }
     }
@@ -39,7 +39,6 @@ export default async function loadShopItems() {
       (item, index, array) =>
         index === array.findIndex((i) => i.name === item.name)
     );
-
     return items;
   } catch (error) {
     console.log("Error", error);

@@ -7,6 +7,7 @@ export default async function loadPurchasedItems(account: string | undefined) {
   const { shop, token } = await loadContracts();
 
   try {
+    console.log('filters', shop.filters.Bought)
     // Fetch purchased items from shop by quering Bought events with the buyer set as the user acct
     const filter = shop.filters.Bought(
       null,
@@ -16,7 +17,9 @@ export default async function loadPurchasedItems(account: string | undefined) {
       null,
       account
     );
+    // console.log("filter", filter);
     const results = await shop.queryFilter(filter);
+    console.log("results", results)
     //Fetch metadata of each token and add that to purchasedItems object.
     const purchasedItems = await Promise.all(
       results.map(async (d) => {
@@ -25,7 +28,7 @@ export default async function loadPurchasedItems(account: string | undefined) {
         // get uri url from token contract
         const uri = await token.uri(i?.tokenId);
         // use uri to fetch the token metadata stored on ipfs
-        const response = await axios.get(uri);
+        const response = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}.json`);
         const metadata = await response.data;
 
         let purchasedItem = {
@@ -33,7 +36,7 @@ export default async function loadPurchasedItems(account: string | undefined) {
           itemId: i?.itemId,
           name: metadata?.name,
           description: metadata?.description,
-          image: metadata?.image,
+          image: `https://gateway.pinata.cloud/ipfs/${metadata?.image}.png`,
         };
         return purchasedItem;
       })
