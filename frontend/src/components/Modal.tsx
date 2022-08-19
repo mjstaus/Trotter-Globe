@@ -35,7 +35,7 @@ export default function Modal({
         <figure className="p-5">
           <img
             className="brightness-75 shadow-inner"
-            src={`./images/thumbnails/${nft?.name}.jpg`}
+            src={`/images/thumbnails/${nft?.name?.toLowerCase().split(" ").join("-")}.jpg`}
             alt={nft?.name}
           />
         </figure>
