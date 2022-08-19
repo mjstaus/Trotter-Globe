@@ -1,6 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi"; 
 import { Location, Ref } from "../interfaces";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   location: Location;
@@ -40,9 +41,9 @@ export default function Navbar({location, globeEl}: NavbarProps) {
             {pathName === "/" && (
               <>
                 {data && (
-                  <a href="/mycollection" className="tab tab-bordered text-white">
+                  <Link to="/mycollection" className="tab tab-bordered text-white">
                     My Collection
-                  </a>
+                  </Link>
                 )}
               </>
             )}
