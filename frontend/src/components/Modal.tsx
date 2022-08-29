@@ -47,7 +47,7 @@ export default function Modal({
                 <div className="badge badge-secondary">SOLD OUT</div>
               )}
             </h2>
-            <p>Trotter {nft?.collection} Collection</p>
+            <p>Trotter {nft?.collection} 2022 Collection</p>
           </div>
           {!nft?.sold && userLocation === nft?.name && (
             <div className="card-actions flex flex-col items-center">
@@ -55,8 +55,8 @@ export default function Modal({
               <div className="flex flex-row items-center">
                 <img
                   className="mr-2"
-                  src="./eth-diamond-glyph.png"
-                  alt="eth-icon"
+                  src="./polygon-token.png"
+                  alt="polygon-token"
                 ></img>
                 <p className="text-xl text-black">{nft?.price}</p>
               </div>
