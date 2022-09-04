@@ -4,11 +4,12 @@ import { Coordinates, Item, Marker } from "../interfaces";
 
 export async function getMarkers(): Promise<Marker[]> {
   // Check for cached items and return them if available
-  const cachedMarkers = window.localStorage.getItem("markers");
-  if (cachedMarkers?.length) {
-    const parsedCache = JSON.parse(cachedMarkers);
-    return parsedCache;
-  }
+  // const cachedMarkers = window.localStorage.getItem("markers");
+  
+  // if (cachedMarkers?.length) {
+  //   const parsedCache = JSON.parse(cachedMarkers);
+  //   return parsedCache;
+  // }
 
   let result = [];
 
