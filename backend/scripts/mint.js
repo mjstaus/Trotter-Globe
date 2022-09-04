@@ -17,7 +17,7 @@ async function mint(idArray) {
 
   const token = new ethers.Contract(tokenAddress.address, Token.abi, deployer);
 
-  // mint nft batch (1-15)
+  // mint nft batch
   await token.connect(deployer).mintBatch(deployer.address, idArray, num);
 
 
