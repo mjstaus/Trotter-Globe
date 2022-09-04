@@ -5,9 +5,8 @@ import loadContracts from "./loadContracts";
 export default async function loadPurchasedItems(account: string | undefined) {
 
   const { shop, token } = await loadContracts();
-
+  
   try {
-    console.log('filters', shop.filters.Bought)
     // Fetch purchased items from shop by quering Bought events with the buyer set as the user acct
     const filter = shop.filters.Bought(
       null,
@@ -17,7 +16,6 @@ export default async function loadPurchasedItems(account: string | undefined) {
       null,
       account
     );
-    // console.log("filter", filter);
     const results = await shop.queryFilter(filter);
     console.log("results", results)
     //Fetch metadata of each token and add that to purchasedItems object.
