@@ -53,15 +53,15 @@ export default function MyCollection() {
                   <figure className="p-3">
                     <img
                       className="shadow-inner"
-                      src={`./images/thumbnails/${item.name}.jpg`}
-                      alt={item.name}
+                      src={`/images/thumbnails/${item?.name?.toLowerCase().split(" ").join("-")}.jpg`}
+                      alt={item?.name}
                     />
                   </figure>
                   <div className="card-body">
                     <h2 className="card-title font-urbanist text-black">
                       {item.name}
                     </h2>
-                    <p>Purchased for: {item.price} ETH</p>
+                    <p>Purchased for: {item?.price} ETH</p>
                   </div>
                 </div>
               ))

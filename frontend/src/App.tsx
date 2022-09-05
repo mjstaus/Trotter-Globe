@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import {
   darkTheme,
@@ -51,7 +51,7 @@ export default function App() {
         })}
         chains={chains}
       >
-        <Router>
+        <HashRouter>
           <div className="bg-black w-full min-h-screen overflow-hidden">
             <Navbar globeEl={globeEl} location={location} />
             <Routes>
@@ -63,7 +63,7 @@ export default function App() {
             </Routes>
             <Footer />
           </div>
-        </Router>
+        </HashRouter>
       </RainbowKitProvider>
     </WagmiConfig>
   );

@@ -15,10 +15,10 @@ const data = [
     id: 2,
     collection: "Berlin",
   },
-  // {
-  //   id: 3,
-  //   collection: "Cairo",
-  // },
+  {
+    id: 3,
+    collection: "Cairo",
+  },
   {
     id: 4,
     collection: "Bangkok",
@@ -35,10 +35,10 @@ const data = [
     id: 7,
     collection: "Sydney",
   },
-  // {
-  //   id: 8,
-  //   collection: "Paris",
-  // },
+  {
+    id: 8,
+    collection: "Paris",
+  },
   {
     id: 9,
     collection: "Rio de Janeiro",
@@ -47,18 +47,18 @@ const data = [
     id: 10,
     collection: "San Francisco",
   },
-  // {
-  //   id: 11,
-  //   collection: "Singapore",
-  // },
-  // {
-  //   id: 12,
-  //   collection: "Tokyo",
-  // },
-  // {
-  //   id: 13,
-  //   collection: "Toronto",
-  // },
+  {
+    id: 11,
+    collection: "Singapore",
+  },
+  {
+    id: 12,
+    collection: "Tokyo",
+  },
+  {
+    id: 13,
+    collection: "Toronto",
+  },
   {
     id: 14,
     collection: "Vancouver",
@@ -77,7 +77,7 @@ async function list(id, collection) {
   const token = new ethers.Contract(tokenAddress.address, Token.abi, deployer);
   const shop = new ethers.Contract(shopAddress.address, Shop.abi, deployer);
 
-  const price = 0.002;
+  const price = 0.01;
 
   // approve shop to spend nft
   await (

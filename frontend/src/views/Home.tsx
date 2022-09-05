@@ -36,6 +36,7 @@ function Home({ globeEl, location }: HomeProps) {
     })();
   }, [isLoaded, location]);
 
+
   const handleTransaction = async () => {
     setTransactionInProgress(true);
     if (nft) {
@@ -43,6 +44,8 @@ function Home({ globeEl, location }: HomeProps) {
       if (result) {
         setTimeout(() => {
           setTransactionInProgress(false);
+          setShowModal(false);
+          setIsLoaded(false);
         }, 200);
       }
     }

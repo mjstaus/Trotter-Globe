@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import loadContracts from "./loadContracts";
-import { Marker} from "../interfaces";
+import { Marker } from "../interfaces";
 
 export default async function buyShopItem(item: Marker) {
   let receipt = null;
@@ -14,21 +14,21 @@ export default async function buyShopItem(item: Marker) {
     const purchaseTx = await shop.purchaseItem(item.itemId, {
       value: price,
     });
-    
+
     const tx = await provider.waitForTransaction(purchaseTx.hash);
 
     while (receipt === null) {
-      receipt = await provider.getTransactionReceipt(
-        tx.transactionHash
-      );
-      
+      receipt = await provider.getTransactionReceipt(tx.transactionHash);
+
       if (receipt === null) {
         continue;
       }
 
-      console.log('success', receipt);
+      window.alert("Purchase Successful!");
+      console.log("Purchase Successful!");
     }
-  } catch (error) {
+  } catch (error: any) {
+    window.alert(`Purchase Not Completed: ${error?.message}`);
     console.log("Error", error);
     return error;
   }
