@@ -20,6 +20,7 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
         string collection;
         uint price;
         address payable seller;
+        address owner;
         bool sold;
     }
 
@@ -58,6 +59,7 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
             _collection,
             _price,
             payable(msg.sender),
+            msg.sender,
             false
         );
         // emit Offered event
@@ -81,6 +83,8 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
         item.sold = true;
         // transfer nft to buyer
         item.nft.safeTransferFrom(address(this), msg.sender, item.tokenId, 1, "");
+        // update item to owner = buyer
+        item.owner = address(this);
         // emit Bought event
         emit Bought(
             _itemId,
