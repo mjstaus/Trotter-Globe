@@ -41,9 +41,9 @@ export default function Navbar({location, globeEl}: NavbarProps) {
             {pathName === "/" && (
               <>
                 {data && (
-                  <Link to="/mycollection" className="tab tab-bordered text-white">
+                  <a href="/mycollection" className="tab text-white">
                     My Collection
-                  </Link>
+                  </a>
                 )}
               </>
             )}
@@ -52,7 +52,7 @@ export default function Navbar({location, globeEl}: NavbarProps) {
                 {data && (
                   <a
                     href="/mycollection"
-                    className="tab tab-bordered tab-active"
+                    className="tab tab-active"
                   >
                     My Collection
                   </a>
