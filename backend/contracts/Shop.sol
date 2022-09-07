@@ -27,13 +27,6 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
     // itemId -> Item
     mapping(uint => Item) public items;
 
-    event Offered(
-        uint itemId,
-        address indexed nft,
-        uint tokenId,
-        uint price,
-        address indexed seller
-    );
     event Bought(
         uint itemId,
         address indexed nft,
@@ -62,14 +55,6 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
             msg.sender,
             false
         );
-        // emit Offered event
-        emit Offered(
-            itemCount,
-            address(_nft),
-            _tokenId,
-            _price,
-            msg.sender
-        );
     }
 
     function purchaseItem(uint _itemId) external payable nonReentrant {
@@ -84,7 +69,7 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
         // transfer nft to buyer
         item.nft.safeTransferFrom(address(this), msg.sender, item.tokenId, 1, "");
         // update item to owner = buyer
-        item.owner = address(this);
+        item.owner = msg.sender;
         // emit Bought event
         emit Bought(
             _itemId,
