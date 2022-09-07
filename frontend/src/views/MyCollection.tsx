@@ -61,7 +61,7 @@ export default function MyCollection() {
                     <h2 className="card-title font-urbanist text-black">
                       {item.name}
                     </h2>
-                    <p>Purchased for: {item?.price} ETH</p>
+                    <p>Purchased for: {item?.price} MATIC</p>
                   </div>
                 </div>
               ))
