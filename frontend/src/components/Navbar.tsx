@@ -36,7 +36,7 @@ export default function Navbar({location, globeEl}: NavbarProps) {
           </a>
         </div>
 
-        <div className="tabs flex items-center justify-self-end mb-2">
+        <div className="tabs flex items-center justify-self-end">
           <div className="tabs">
             {pathName === "/" && (
               <>
