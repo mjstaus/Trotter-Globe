@@ -36,14 +36,14 @@ export default function Navbar({location, globeEl}: NavbarProps) {
           </a>
         </div>
 
-        <div className="tabs flex items-center justify-self-end mb-2">
+        <div className="tabs flex items-center justify-self-end">
           <div className="tabs">
             {pathName === "/" && (
               <>
                 {data && (
-                  <Link to="/mycollection" className="tab tab-bordered text-white">
+                  <a href="/mycollection" className="tab">
                     My Collection
-                  </Link>
+                  </a>
                 )}
               </>
             )}
@@ -52,7 +52,7 @@ export default function Navbar({location, globeEl}: NavbarProps) {
                 {data && (
                   <a
                     href="/mycollection"
-                    className="tab tab-bordered tab-active"
+                    className="tab tab-active"
                   >
                     My Collection
                   </a>
