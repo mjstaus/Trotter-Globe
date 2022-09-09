@@ -140,7 +140,7 @@ export default function Globe({
           labelAltitude={0.002}
           labelLat={(d: any) => d.lat}
           labelLng={(d: any) => d.lng}
-          labelText={(d: any) => d.name}
+          labelText={(d: any) => d.city}
           labelSize={1.2}
           labelDotRadius={0.6}
           labelColor={(d: any) => d.color}
