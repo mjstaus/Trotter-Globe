@@ -1,35 +1,25 @@
 import { ethers } from "ethers";
-import axios from "axios";
 import loadContracts from "./loadContracts";
 
 export default async function loadShopItems() {
-  const { token, shop } = await loadContracts();
-  // load all items
+  const { shop } = await loadContracts();
+
   let items = [];
   try {
     const itemCount = await shop.callStatic.itemCount();
 
     for (let i = 1; i <= Number(itemCount.toString()); i++) {
       const item = await shop.callStatic.items(i);
-      // get uri url from token contract
-      const uri = await token.uri(item.tokenId);
-      // use uri to fetch the token metadata stored on ipfs
-      const response = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}.json`);
-      const metadata = await response.data;
-
-      if (!item.sold) {
-        // Add item to items array
-        items.push({
-          price: ethers.utils.formatEther(item.price),
-          itemId: item.itemId._hex,
-          seller: item.seller,
-          collection: item.collection,
-          sold: item.sold,
-          name: metadata.name,
-          country: metadata.country,
-          image: `https://gateway.pinata.cloud/ipfs/${metadata.image}.png`,
-        });
-      }
+      // Add item to items array
+      items.push({
+        price: ethers.utils.formatEther(item.price),
+        itemId: item.itemId._hex,
+        seller: item.seller,
+        sold: item.sold,
+        city: item.city,
+        country: item.country,
+        image: `https://gateway.pinata.cloud/ipfs/${item.image}`,
+      });
     }
 
     // Sort items array by sold property value
@@ -37,7 +27,7 @@ export default async function loadShopItems() {
     // Filter out duplicate items by name property
     items = items.filter(
       (item, index, array) =>
-        index === array.findIndex((i) => i.name === item.name)
+        index === array.findIndex((i) => i.city === item.city)
     );
     return items;
   } catch (error) {
