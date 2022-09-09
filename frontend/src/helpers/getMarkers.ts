@@ -1,48 +1,22 @@
-import axios from "axios";
 import loadShopItems from "./loadShopItems";
-import { Coordinates, Item, Marker } from "../interfaces";
+import { Marker } from "../interfaces";
+import latLngMap from "../constants/latLngMap";
 
 export async function getMarkers(): Promise<Marker[]> {
-  // Check for cached items and return them if available
-  // const cachedMarkers = window.localStorage.getItem("markers");
-  
-  // if (cachedMarkers?.length) {
-  //   const parsedCache = JSON.parse(cachedMarkers);
-  //   return parsedCache;
-  // }
-
   let result = [];
 
   const items = await loadShopItems();
 
-  const getCoords = async (item: Item) => {
-    let apiURL = `https://api.openweathermap.org/geo/1.0/direct?q=${item.name},${item.country}&limit=1&appid=302dd63e3014261e4e3639ec1b4d8716`;
-
-    let coordinates: Coordinates = {};
-
-    try {
-      const res = await axios.get(apiURL);
-      coordinates.lat = res.data[0].lat;
-      coordinates.lon = res.data[0].lon;
-      return coordinates;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   if (items?.length) {
     for await (const item of items) {
-      const coords = await getCoords(item);
+      const { country, city } = item;
       result.push({
         ...item,
-        lat: coords?.lat,
-        lng: coords?.lon,
+        lat: latLngMap[country][city].lat,
+        lng: latLngMap[country][city].lng,
         color: "white",
       });
     }
   }
-
-  // Cache markers in localStorage
-  window.localStorage.setItem("markers", JSON.stringify(result));
   return result;
 }
