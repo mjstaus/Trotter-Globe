@@ -1,7 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { Location, Ref } from "../interfaces";
-import { Link } from "react-router-dom";
 
 interface NavbarProps {
   location: Location;
@@ -36,14 +35,14 @@ export default function Navbar({ location, globeEl }: NavbarProps) {
           </a>
         </div>
 
-        {pathName === "/" && (
+        {pathName === "/" && data && (
           <div className="btn btn-round bg-transparent border-none text-white">
-            {data && <a href="/mycollection">My Collection</a>}
+             <a href="/mycollection">My Collection</a>
           </div>
         )}
-        {pathName === "/mycollection" && (
+        {pathName === "/mycollection" && data && (
           <div className="btn btn-round text-white">
-            {data && <a href="/mycollection">My Collection</a>}
+            <a href="/mycollection">My Collection</a>
           </div>
         )}
         <div className="px-3">
