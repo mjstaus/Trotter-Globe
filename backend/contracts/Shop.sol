@@ -17,7 +17,9 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
         uint itemId;
         IERC1155 nft;
         uint tokenId;
-        string collection;
+        string city;
+        string country;
+        string image;
         uint price;
         address payable seller;
         address owner;
@@ -37,7 +39,7 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
     );
 
     // Make item to offer in the shop
-    function makeItem(IERC1155 _nft, uint _tokenId, string memory _collection, uint _price) external onlyOwner {
+    function makeItem(IERC1155 _nft, uint _tokenId, string memory _city, string memory _country, string memory _image, uint _price) external onlyOwner {
         
         require(_price > 0, "Price must be greater than zero");
         // increment itemCount
@@ -49,7 +51,9 @@ contract Shop is ERC1155Holder, ReentrancyGuard, Ownable, Token {
             itemCount,
             _nft,
             _tokenId,
-            _collection,
+            _city,
+            _country,
+            _image,
             _price,
             payable(msg.sender),
             msg.sender,
