@@ -35,21 +35,20 @@ export default function Modal({
         <figure className="p-5">
           <img
             className="brightness-75 shadow-inner"
-            src={`/images/thumbnails/${nft?.name?.toLowerCase().split(" ").join("-")}.jpg`}
-            alt={nft?.name}
+            src={`/images/thumbnails/${nft?.city?.toLowerCase().split(" ").join("-")}.jpg`}
+            alt={nft?.city}
           />
         </figure>
         <div className="card-body flex-row justify-between bg-white">
           <div className="flex-column">
             <h2 className="card-title font-urbanist text-black text-3xl">
-              {nft?.name}
+              {nft?.city}
               {nft?.sold && (
                 <div className="badge badge-secondary">SOLD OUT</div>
               )}
             </h2>
-            <p>Trotter {nft?.collection} 2022 Collection</p>
           </div>
-          {!nft?.sold && userLocation === nft?.name && (
+          {!nft?.sold && userLocation === nft?.city && (
             <div className="card-actions flex flex-col items-center">
               <p className="text-lg">Price</p>
               <div className="flex flex-row items-center">
