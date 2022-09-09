@@ -9,67 +9,97 @@ const Shop = require("../../frontend/src/contractsData/Shop.json");
 const data = [
   {
     id: 1,
-    collection: "Athens",
+    city: "Athens",
+    country: "GR",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 2,
-    collection: "Berlin",
+    city: "Berlin",
+    country: "DE",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 3,
-    collection: "Cairo",
+    city: "Cairo",
+    country: "EG",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 4,
-    collection: "Bangkok",
+    city: "Bangkok",
+    country: "TH",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 5,
-    collection: "Lisbon",
+    city: "Lisbon",
+    country: "PT",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 6,
-    collection: "New York",
+    city: "New York",
+    country: "US",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 7,
-    collection: "Sydney",
+    city: "Sydney",
+    country: "AU",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 8,
-    collection: "Paris",
+    city: "Paris",
+    country: "FR",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 9,
-    collection: "Rio de Janeiro",
+    city: "Rio de Janeiro",
+    country: "BR",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 10,
-    collection: "San Francisco",
+    city: "San Francisco",
+    country: "US",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 11,
-    collection: "Singapore",
+    city: "Singapore",
+    country: "SG",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 12,
-    collection: "Tokyo",
+    city: "Tokyo",
+    country: "JP",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 13,
-    collection: "Toronto",
+    city: "Toronto",
+    country: "CA",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 14,
-    collection: "Vancouver",
+    city: "Vancouver",
+    country: "CA",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
   {
     id: 15,
-    collection: "Austin",
+    city: "Austin",
+    country: "US",
+    image: `QmZMyyN4VcHZ2dYyRqvN7KgKDmfqNDJQxifD6QfJDiFQLu/${this.id}`
   },
 ];
 
-async function list(id, collection) {
+async function list(id, city, country, image) {
   const toWei = (num) => ethers.utils.parseEther(num.toString());
 
   [deployer] = await ethers.getSigners();
@@ -87,17 +117,17 @@ async function list(id, collection) {
   await (
     await shop
       .connect(deployer)
-      .makeItem(token.address, id, collection, toWei(price))
+      .makeItem(token.address, id, city, country, image, toWei(price))
   ).wait();
   const itemId = await shop.itemCount();
   const newItem = await shop.items(itemId);
-  console.log("New Item:", newItem.collection);
+  console.log("New Item:", newItem.city);
   console.log("Shop item count:", itemId);
 }
 
 async function main(data) {
   for (const d of data) {
-    await list(d.id, d.collection);
+    await list(d.id, d.city, d.country, d.image);
   }
 }
 
