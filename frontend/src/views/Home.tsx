@@ -2,13 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import type { MutableRefObject } from "react";
 import "../App.css";
 import { Transition } from "@headlessui/react";
+import ConnectCard from "../components/ConnectCard";
 import Globe from "../components/globe";
 import Modal from "../components/Modal";
 import TransactionProgress from "../components/TransactionProgress";
+import { useAccount } from "wagmi";
 
 import useLoading from "../hooks/useLoading";
-import { getMarkers } from "../helpers/getMarkers";
 import buyShopItem from "../helpers/buyShopItem";
+import { getMarkers } from "../helpers/getMarkers";
 import { Location, Marker, Ref } from "../interfaces";
 
 interface HomeProps {
@@ -18,11 +20,13 @@ interface HomeProps {
 
 function Home({ globeEl, location }: HomeProps) {
   const [showModal, setShowModal] = useState(false);
-  const [nft, setNft] = useState<Marker | undefined >(undefined);
+  const [nft, setNft] = useState<Marker | undefined>(undefined);
   const [transactionInProgress, setTransactionInProgress] = useState(false);
 
   const { isLoaded, setIsLoaded } = useLoading();
   const markers: MutableRefObject<Marker[] | undefined> = useRef(undefined);
+
+  const { data } = useAccount();
 
   useEffect(() => {
     (async function asyncHandler() {
@@ -35,7 +39,6 @@ function Home({ globeEl, location }: HomeProps) {
       }
     })();
   }, [isLoaded, location]);
-
 
   const handleTransaction = async () => {
     setTransactionInProgress(true);
@@ -67,17 +70,19 @@ function Home({ globeEl, location }: HomeProps) {
 
   return (
     <>
-      {!isLoaded && (
+      {!data?.address && <ConnectCard />}
+
+      {!isLoaded && data?.address && (
         <div className="flex justify-center items-center h-screen">
           <img
             src="pig-spinner.png"
             className="animate-spin-slow"
             alt="Trotter-logo-spinner"
-          ></img>
+          />
         </div>
       )}
 
-      {isLoaded && (
+      {isLoaded && data?.address && (
         <>
           <Globe
             globeEl={globeEl}

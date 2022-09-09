@@ -1,5 +1,4 @@
-import { ethers } from "ethers";
-import web3Handler from "./web3Handler";
+import { ethers, providers } from "ethers";
 
 import ShopAddress from "../contractsData/Shop-address.json";
 import ShopABI from "../contractsData/Shop.json";
@@ -10,7 +9,15 @@ export default async function loadContracts() {
   let shop;
   let token;
 
-  const signer = await web3Handler();
+  const provider = new providers.Web3Provider(window.ethereum as any);
+  const signer = provider.getSigner();
+
+  const { chainId } = await provider.getNetwork();
+  if (chainId !== 80001) {
+    window.alert("Please switch to the Polygon network!");
+    throw new Error("Please switch to the Polygon network");
+  }
+
   // Get deployed copies of contracts
   const shopContract = new ethers.Contract(
     ShopAddress.address,

@@ -51,8 +51,7 @@ export interface Marker {
 export interface PurchasedItem {
     price: string;
     itemId: number,
-    name: string,
-    description: string,
+    city: string,
     image: string,
 }
 
