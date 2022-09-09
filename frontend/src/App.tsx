@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import "@rainbow-me/rainbowkit/styles.css";
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
 import {
   darkTheme,
@@ -21,16 +21,20 @@ import useGeolocation from "./hooks/useGeolocation";
 const infuraId = "447bd0a413c84ff3981cd00b3b7c3029";
 
 const { chains, provider } = configureChains(
-  [chain.polygon, chain.polygonMumbai, chain.hardhat, chain.localhost, chain.rinkeby],
   [
-    infuraProvider({ infuraId }),
-    publicProvider(),
-  ]
+    chain.polygon,
+    chain.polygonMumbai,
+    chain.hardhat,
+    chain.localhost,
+    chain.rinkeby,
+  ],
+  [infuraProvider({ infuraId }), publicProvider()]
 );
 const { connectors } = getDefaultWallets({
   appName: "Trotter",
   chains,
 });
+
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
@@ -38,7 +42,6 @@ const wagmiClient = createClient({
 });
 
 export default function App() {
-
   const globeEl = useRef<HTMLElement>(null!);
   const { location } = useGeolocation();
 
@@ -55,11 +58,11 @@ export default function App() {
           <div className="bg-black w-full min-h-screen overflow-hidden">
             <Navbar globeEl={globeEl} location={location} />
             <Routes>
-              <Route path="/" element={<Home globeEl={globeEl} location={location} />} />
               <Route
-                path="/mycollection"
-                element={<MyCollection />}
+                path="/"
+                element={<Home globeEl={globeEl} location={location} />}
               />
+              <Route path="/mycollection" element={<MyCollection />} />
             </Routes>
             <Footer />
           </div>
