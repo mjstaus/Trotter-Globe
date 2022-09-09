@@ -1,5 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi"; 
+import { useAccount } from "wagmi";
 import { Location, Ref } from "../interfaces";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ interface NavbarProps {
   globeEl: Ref;
 }
 
-export default function Navbar({location, globeEl}: NavbarProps) {
+export default function Navbar({ location, globeEl }: NavbarProps) {
   const { data } = useAccount();
   const pathName = window.location.pathname;
 
@@ -36,32 +36,17 @@ export default function Navbar({location, globeEl}: NavbarProps) {
           </a>
         </div>
 
-        <div className="tabs flex items-center justify-self-end">
-          <div className="tabs">
-            {pathName === "/" && (
-              <>
-                {data && (
-                  <a href="/mycollection" className="tab">
-                    My Collection
-                  </a>
-                )}
-              </>
-            )}
-            {pathName === "/mycollection" && (
-              <>
-                {data && (
-                  <a
-                    href="/mycollection"
-                    className="tab tab-active"
-                  >
-                    My Collection
-                  </a>
-                )}
-              </>
-            )}
+        {pathName === "/" && (
+          <div className="btn btn-round bg-transparent border-none text-white">
+            {data && <a href="/mycollection">My Collection</a>}
           </div>
-        </div>
-        <div className="flex flex-col justify-between items-end ml-3">
+        )}
+        {pathName === "/mycollection" && (
+          <div className="btn btn-round text-white">
+            {data && <a href="/mycollection">My Collection</a>}
+          </div>
+        )}
+        <div className="px-3">
           <ConnectButton
             accountStatus={{
               smallScreen: "avatar",
@@ -72,29 +57,29 @@ export default function Navbar({location, globeEl}: NavbarProps) {
           />
         </div>
         <button
-            className="btn btn-round  p-2 py-1 m-3"
-            onClick={centerOnLocation}
+          className="btn btn-round p-2 py-1 text-white"
+          onClick={centerOnLocation}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-          </button>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+        </button>
       </div>
     </>
   );
