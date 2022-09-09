@@ -1,24 +1,32 @@
+interface City {
+  lat: number;
+  lng: number;
+}
 export interface Coordinates {
   lat?: number | null,
   lon?: number | null,
+}
+
+interface Country {
+  [city: string]: City;
 }
 export interface Error {
   code: string,
   message: string
 }
-
 export interface Item {
   price: string;
   itemId: number;
   seller: string;
-  collection: string;
   sold: boolean;
-  name?: string;
+  city?: string;
   country?: string;
   image?: string;
   tokenID?: number;
 }
-
+export interface LatLngMap {
+  [country: string]: Country
+}
 export interface Location {
   allowLocation: boolean,
   coordinates?: Coordinates,
@@ -31,9 +39,8 @@ export interface Marker {
   price: string;
   itemId: number;
   seller: string;
-  collection: string;
+  city?: string;
   sold: boolean;
-  name?: string;
   country?: string;
   image?: string;
   lat?: number | null | undefined;
