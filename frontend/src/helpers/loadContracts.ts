@@ -13,7 +13,7 @@ export default async function loadContracts() {
   const signer = provider.getSigner();
 
   const { chainId } = await provider.getNetwork();
-  if (chainId !== 80001) {
+  if (chainId !== 137) {
     window.alert("Please switch to the Polygon network!");
     throw new Error("Please switch to the Polygon network");
   }
