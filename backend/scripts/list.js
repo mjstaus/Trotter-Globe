@@ -107,7 +107,7 @@ async function list(id, city, country, image) {
   const token = new ethers.Contract(tokenAddress.address, Token.abi, deployer);
   const shop = new ethers.Contract(shopAddress.address, Shop.abi, deployer);
 
-  const price = 0.01;
+  const price = 5;
 
   // approve shop to spend nft
   await (
