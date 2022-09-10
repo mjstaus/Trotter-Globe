@@ -6,13 +6,13 @@ require("@nomiclabs/hardhat-etherscan");
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  // defaultNetwork: "matic",
+  defaultNetwork: "matic",
   networks: {
     hardhat: {
       chainId: 1337,
     },
     matic: {
-      url: process.env.INFURA_MUMBAI_API_URL,
+      url: process.env.INFURA_POLYGON_API_URL,
       accounts: [process.env.PRIVATE_KEY]
     },
     rinkeby: {
