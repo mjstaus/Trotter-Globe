@@ -28,7 +28,6 @@ export default async function buyShopItem(item: Marker) {
       console.log("Purchase Successful!");
     }
   } catch (error: any) {
-    window.alert(`Purchase Not Completed: ${error?.message}`);
     console.log("Error", error);
     return error;
   }
