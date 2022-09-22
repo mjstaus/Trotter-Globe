@@ -1,3 +1,6 @@
+export interface AlertMessage {
+  message?: string;
+}
 interface City {
   lat: number;
   lng: number;
