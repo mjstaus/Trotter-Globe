@@ -1,3 +1,7 @@
+export interface AlertData {
+  code?: string;
+  blockHash?: string;
+}
 interface City {
   lat: number;
   lng: number;
