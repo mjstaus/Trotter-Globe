@@ -27,17 +27,22 @@ export default function Alert({ handleHideAlert, alertData }: AlertProps) {
   return (
     <>
       <div className="card card-compact w-96 bg-purple-400 text-black rounded-md shadow-custom-lg z-50 mr-10 mt-1">
-        <div className="card-body">
+        <div className="card-body items-center text-center">
           {alertData?.code && (
             <>
-              <h2 className="card-title">Transaction Unsuccessful!</h2>
-              <p>Error code: {alertData?.code}</p>
+              <h2 className="card-title">Transaction Failed!</h2>
+              <p className="">Error code: {alertData?.code}</p>
             </>
           )}
           {alertData?.blockHash && (
-            <>
-              <h2 className="card-title">Transaction Successful!</h2>
-            </>
+          <>
+            <h2 className="card-title">Transaction Successful!</h2>
+            <div className="card-actions">
+              <div className="btn btn-round text-white">
+                <a href="/mycollection">View collection</a>
+              </div>
+            </div>
+          </>
           )}
         </div>
       </div>
