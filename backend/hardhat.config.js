@@ -15,6 +15,10 @@ module.exports = {
       url: process.env.INFURA_POLYGON_API_URL,
       accounts: [process.env.PRIVATE_KEY]
     },
+    mumbai: {
+      url: process.env.INFURA_MUMBAI_API_URL,
+      accounts: [process.env.PRIVATE_KEY]
+    },
     rinkeby: {
       url: process.env.INFURA_RINKEBY_API_URL,
       accounts: [process.env.PRIVATE_KEY]
