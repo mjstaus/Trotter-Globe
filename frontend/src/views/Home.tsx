@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import type { MutableRefObject } from "react";
 import "../App.css";
 import { Transition } from "@headlessui/react";
+import Alert from "../components/Alert";
 import ConnectCard from "../components/ConnectCard";
 import Globe from "../components/globe";
 import Modal from "../components/Modal";
@@ -11,7 +12,7 @@ import { useAccount } from "wagmi";
 import useLoading from "../hooks/useLoading";
 import buyShopItem from "../helpers/buyShopItem";
 import { getMarkers } from "../helpers/getMarkers";
-import { Location, Marker, Ref } from "../interfaces";
+import { AlertMessage, Location, Marker, Ref } from "../interfaces";
 
 interface HomeProps {
   location: Location;
@@ -19,6 +20,8 @@ interface HomeProps {
 }
 
 function Home({ globeEl, location }: HomeProps) {
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<AlertMessage | undefined>(undefined)
   const [showModal, setShowModal] = useState(false);
   const [nft, setNft] = useState<Marker | undefined>(undefined);
   const [transactionInProgress, setTransactionInProgress] = useState(false);
@@ -48,6 +51,7 @@ function Home({ globeEl, location }: HomeProps) {
         setTimeout(() => {
           setTransactionInProgress(false);
           setShowModal(false);
+          handleShowAlert(result);
           setIsLoaded(false);
         }, 200);
       }
@@ -67,6 +71,16 @@ function Home({ globeEl, location }: HomeProps) {
       globeEl.current.pointOfView({ lat, lng, altitude: 2.5 }, ROTATION_SPEED);
     }, 200);
   };
+  const handleShowAlert = (d: any) => {
+    setShowAlert(true);
+    if(d.message){
+      setAlertMessage(d)
+    }
+    
+  }
+  const handleHideAlert = () => {
+    setShowAlert(false);
+  }
 
   return (
     <>
@@ -149,6 +163,48 @@ function Home({ globeEl, location }: HomeProps) {
         className="z-50 w-40 p-2 absolute bottom-6 right-6 flex flex-col justify-center items-center"
       >
         <TransactionProgress />
+      </Transition>
+      <Transition show={showAlert}>
+        <Transition.Child
+          enter="transform transition duration-[600ms]"
+          enterFrom="scale-0"
+          enterTo="scale-100"
+          leave="ease-in duration-[300ms]"
+          leaveFrom="scale-100"
+          leaveTo="scale-0"
+          className="fixed inset-0 h-screen z-50 flex justify-center items-center"
+          onClick={() => {
+            handleHideAlert();
+          }}
+        >
+          <div className="flex flex-col justify-center items-center">
+            <button
+              className="btn btn-sm btn-circle self-end"
+              onClick={handleHideAlert}
+            >
+              x
+            </button>
+
+            <div
+              className="modal-content"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              
+        <Alert handleHideAlert={handleHideAlert} alertMessage={alertMessage}/>
+            </div>
+          </div>
+        </Transition.Child>
+        <Transition.Child
+          enter="transition-opacity ease-linear duration-[200ms]"
+          enterFrom="opacity-0"
+          enterTo="opacity-50"
+          leave="transition-opacity ease-linear duration-[200ms]"
+          leaveFrom="opacity-50"
+          leaveTo="opacity-0"
+          className="fixed top-0 right-0 bottom-0 left-0 z-40 bg-black"
+        ></Transition.Child>
       </Transition>
     </>
   );
