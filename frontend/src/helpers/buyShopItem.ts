@@ -23,13 +23,11 @@ export default async function buyShopItem(item: Marker) {
       if (receipt === null) {
         continue;
       }
-
-      window.alert("Purchase Successful!");
-      console.log("Purchase Successful!");
     }
   } catch (error: any) {
     console.log("Error", error);
     return error;
   }
+
   return receipt;
 }
