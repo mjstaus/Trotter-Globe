@@ -12,7 +12,7 @@ import { useAccount } from "wagmi";
 import useLoading from "../hooks/useLoading";
 import buyShopItem from "../helpers/buyShopItem";
 import { getMarkers } from "../helpers/getMarkers";
-import { AlertMessage, Location, Marker, Ref } from "../interfaces";
+import { AlertData, Location, Marker, Ref } from "../interfaces";
 
 interface HomeProps {
   location: Location;
@@ -21,7 +21,7 @@ interface HomeProps {
 
 function Home({ globeEl, location }: HomeProps) {
   const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState<AlertMessage | undefined>(undefined)
+  const [alertData, setAlertData] = useState<AlertData | undefined>(undefined)
   const [showModal, setShowModal] = useState(false);
   const [nft, setNft] = useState<Marker | undefined>(undefined);
   const [transactionInProgress, setTransactionInProgress] = useState(false);
@@ -73,10 +73,7 @@ function Home({ globeEl, location }: HomeProps) {
   };
   const handleShowAlert = (d: any) => {
     setShowAlert(true);
-    if(d.message){
-      setAlertMessage(d)
-    }
-    
+    setAlertData(d);    
   }
   const handleHideAlert = () => {
     setShowAlert(false);
@@ -192,7 +189,7 @@ function Home({ globeEl, location }: HomeProps) {
               }}
             >
               
-        <Alert handleHideAlert={handleHideAlert} alertMessage={alertMessage}/>
+        <Alert handleHideAlert={handleHideAlert} alertData={alertData}/>
             </div>
           </div>
         </Transition.Child>
