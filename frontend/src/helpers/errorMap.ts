@@ -33,7 +33,7 @@ const errorMap = {
     message: 'Whoa, slow down there speed racer! Too many requests!',
   },
   [4001]: {
-    message: "Looks like you rejected the request! We'll need you to try again and sign the transaction if you want to purchase this item.",
+    message: "Looks like you rejected the request! You'll need to sign the request if you want to purchase this item.",
   },
   [4100]: {
     message: "You'll need to authorize the requested account and/or method before trying again.",
