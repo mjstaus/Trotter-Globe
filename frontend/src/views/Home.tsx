@@ -41,7 +41,7 @@ function Home({ globeEl, location }: HomeProps) {
         setIsLoaded(false);
       }
     })();
-  }, [isLoaded, location]);
+  }, [data, isLoaded, location]);
 
   const handleTransaction = async () => {
     setTransactionInProgress(true);
