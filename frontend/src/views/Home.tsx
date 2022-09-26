@@ -27,21 +27,29 @@ function Home({ globeEl, location }: HomeProps) {
   const [transactionInProgress, setTransactionInProgress] = useState(false);
 
   const { isLoaded, setIsLoaded } = useLoading();
-  const markers: MutableRefObject<Marker[] | undefined> = useRef(undefined);
+  // const markers: MutableRefObject<Marker[] | undefined> = useRef(undefined);
+  const [markers, setMarkers] = useState<Marker[] | undefined>(undefined);
 
   const { data } = useAccount();
+  console.log("data:", data);
+  
 
   useEffect(() => {
-    (async function asyncHandler() {
+    async function populateMarkers() {
       try {
-        markers.current = await getMarkers();
-        if (markers && location?.coordinates?.lat) setIsLoaded(true);
+        const updatedMarkers = await getMarkers();
+        setMarkers(updatedMarkers)
+        if (updatedMarkers?.length) setIsLoaded(true);
       } catch (error) {
         console.log(error);
         setIsLoaded(false);
       }
-    })();
-  }, [data, isLoaded, location]);
+    };
+
+    if (!!data && !markers && !!location?.coordinates?.lat) {
+      populateMarkers()      
+    }
+  }, [data, location]);
 
   const handleTransaction = async () => {
     setTransactionInProgress(true);
@@ -98,7 +106,7 @@ function Home({ globeEl, location }: HomeProps) {
           <Globe
             globeEl={globeEl}
             handleShowModal={handleShowModal}
-            markers={markers.current}
+            markers={markers}
             userLocation={location}
           />
         </>
