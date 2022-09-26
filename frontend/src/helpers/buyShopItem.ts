@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import loadContracts from "./loadContracts";
-import { Marker } from "../interfaces";
+import { Error, Marker } from "../interfaces";
+import errorMap from "./errorMap";
 
 export default async function buyShopItem(item: Marker) {
   let receipt = null;
@@ -24,9 +25,8 @@ export default async function buyShopItem(item: Marker) {
         continue;
       }
     }
-  } catch (error: any) {
-    console.log("Error", error);
-    return error;
+  } catch (error: Error | any) {
+    return errorMap[error.code as keyof typeof errorMap] ?? error;
   }
 
   return receipt;

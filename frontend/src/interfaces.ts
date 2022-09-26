@@ -1,5 +1,5 @@
 export interface AlertData {
-  code?: string;
+  message?: string;
   blockHash?: string;
 }
 interface City {
@@ -18,6 +18,7 @@ export interface Error {
   code: string,
   message: string
 }
+
 export interface Item {
   price: string;
   itemId: number;
