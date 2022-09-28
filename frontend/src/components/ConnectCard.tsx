@@ -1,4 +1,7 @@
-export default function ConnectCard() {
+interface ConnectCardProps {
+  message: string | undefined
+}
+export default function ConnectCard({message}: ConnectCardProps) {
   return (
     <div className="flex flex-col items-center pt-24 min-h-screen justify-start">
       <div className="card w-96 bg-base-100 shadow-xl my-10">
@@ -10,7 +13,7 @@ export default function ConnectCard() {
           <img src="polygon-token.png" alt="Polygon-logo" className="pl-2" />
         </figure>
         <div className="card-body items-center text-center">
-          <h2 className="card-title text-white">Please connect your wallet!</h2>
+          <h2 className="card-title text-white">{message}</h2>
         </div>
       </div>
     </div>
