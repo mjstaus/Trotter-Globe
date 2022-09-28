@@ -12,12 +12,6 @@ export default async function loadContracts() {
   const provider = new providers.Web3Provider(window.ethereum as any);
   const signer = provider.getSigner();
 
-  const { chainId } = await provider.getNetwork();
-  if (chainId !== 137) {
-    window.alert("Please switch to the Polygon network!");
-    throw new Error("Please switch to the Polygon network");
-  }
-
   // Get deployed copies of contracts
   const shopContract = new ethers.Contract(
     ShopAddress.address,
