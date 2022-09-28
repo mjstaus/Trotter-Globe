@@ -26,7 +26,6 @@ const { chains, provider } = configureChains(
     chain.polygonMumbai,
     chain.hardhat,
     chain.localhost,
-    chain.rinkeby,
   ],
   [infuraProvider({ infuraId }), publicProvider()]
 );
