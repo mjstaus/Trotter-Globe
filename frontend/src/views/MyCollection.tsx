@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
+import { providers } from "ethers";
 import useLoading from "../hooks/useLoading";
 import loadPurchasedItems from "../helpers/loadPurchasedItems";
 import { PurchasedItem } from "../interfaces";
 import ConnectCard from "../components/ConnectCard";
 
 export default function MyCollection() {
+  const [chain, setChain] = useState<number | undefined>(undefined);
   const { isLoaded, setIsLoaded } = useLoading();
   const { data } = useAccount();
 
@@ -24,11 +26,22 @@ export default function MyCollection() {
         setIsLoaded(false);
       }
     })();
+
+    async function chainHandler() {
+      const provider = new providers.Web3Provider(window.ethereum as any);
+      const { chainId } = await provider.getNetwork();
+      setChain(chainId);
+    }
+    chainHandler();
   }, [data, setIsLoaded]);
 
   return (
     <>
-      {!data?.address && <ConnectCard />}
+      {!data?.address && (
+        <ConnectCard message={"Please connect your wallet!"} />
+      )}
+
+      {chain !== 137 && <ConnectCard message={"Please connect to Polygon!"} />}
 
       {data?.address && (
         <div className="flex flex-col items-center pt-24 min-h-screen justify-start">

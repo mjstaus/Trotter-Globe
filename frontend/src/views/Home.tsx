@@ -8,6 +8,7 @@ import Globe from "../components/globe";
 import Modal from "../components/Modal";
 import TransactionProgress from "../components/TransactionProgress";
 import { useAccount } from "wagmi";
+import { providers } from "ethers";
 
 import useLoading from "../hooks/useLoading";
 import buyShopItem from "../helpers/buyShopItem";
@@ -20,34 +21,50 @@ interface HomeProps {
 }
 
 function Home({ globeEl, location }: HomeProps) {
+  const [alertData, setAlertData] = useState<AlertData | undefined>(undefined);
+  const [chain, setChain] = useState<number | undefined>(undefined);
   const [showAlert, setShowAlert] = useState(false);
-  const [alertData, setAlertData] = useState<AlertData | undefined>(undefined)
   const [showModal, setShowModal] = useState(false);
   const [nft, setNft] = useState<Marker | undefined>(undefined);
   const [transactionInProgress, setTransactionInProgress] = useState(false);
 
   const { isLoaded, setIsLoaded } = useLoading();
-  // const markers: MutableRefObject<Marker[] | undefined> = useRef(undefined);
   const [markers, setMarkers] = useState<Marker[] | undefined>(undefined);
 
   const { data } = useAccount();
-  console.log("data:", data);
-  
 
   useEffect(() => {
     async function populateMarkers() {
       try {
         const updatedMarkers = await getMarkers();
-        setMarkers(updatedMarkers)
+        setMarkers(updatedMarkers);
         if (updatedMarkers?.length) setIsLoaded(true);
       } catch (error) {
         console.log(error);
         setIsLoaded(false);
       }
-    };
+    }
+
+    async function chainHandler() {
+      const provider = new providers.Web3Provider(window.ethereum as any);
+      const { chainId } = await provider.getNetwork();
+      setChain(chainId);
+    }
+
+    chainHandler();
 
     if (!!data && !markers && !!location?.coordinates?.lat) {
-      populateMarkers()      
+      populateMarkers();
+    }
+
+    // Trigger reload on account or chain change
+    if (window.ethereum) {
+      (window.ethereum as any).on("chainChanged", () => {
+        window.location.reload();
+      });
+      (window.ethereum as any).on("accountsChanged", () => {
+        window.location.reload();
+      });
     }
   }, [data, location]);
 
@@ -81,15 +98,19 @@ function Home({ globeEl, location }: HomeProps) {
   };
   const handleShowAlert = (d: any) => {
     setShowAlert(true);
-    setAlertData(d);    
-  }
+    setAlertData(d);
+  };
   const handleHideAlert = () => {
     setShowAlert(false);
-  }
+  };
 
   return (
     <>
-      {!data?.address && <ConnectCard />}
+      {!data?.address && (
+        <ConnectCard message={"Please connect your wallet!"} />
+      )}
+
+      {chain !== 137 && <ConnectCard message={"Please connect to Polygon!"} />}
 
       {!isLoaded && data?.address && (
         <div className="flex justify-center items-center h-screen">
@@ -196,8 +217,7 @@ function Home({ globeEl, location }: HomeProps) {
                 e.stopPropagation();
               }}
             >
-              
-        <Alert handleHideAlert={handleHideAlert} alertData={alertData}/>
+              <Alert handleHideAlert={handleHideAlert} alertData={alertData} />
             </div>
           </div>
         </Transition.Child>
